@@ -1,11 +1,38 @@
 <!doctype html>
 
 <head>
+	<link rel ="stylesheet" type = "text/css" href = "style.css">
 	<meta charset="utf-8">
 	<script>
-		// TODO: create a handler
+	function setSearchEngine () {
+			let engineSelection = document.querySelector("input[name=engine]:checked")
+			let actions = {
+				"google": "https://www.google.com/search",
+				"duckduckgo" : "https://duckduckgo.com/",
+				"bing" : "https://www.bing.com/search",
+				"ask" : "https://www.ask.com/web"
+			}
+			let formSearch = document.getElementById("searchForm");
+			formSearch.setAttribute("action",actions[engineSelection.value]);
+		}
     window.addEventListener("load", function(){
-        // TODO: register the handler
+        let form = document.querySelector("form");
+		let googleSearch = document.querySelector("input[value=google]");
+		let bingSearch = document.querySelector("input[value=bing]");
+		let askSearch = document.querySelector("input[value=ask]");
+		let duckDuckGo = document.querySelector("input[value=duckduckgo]");
+		form.addEventListener("submit", function (){
+			let searchText = document.querySelector("input[name=q]");
+			if(searchText.value === ""){
+				alert("Must have and input");
+				event.preventDefault();
+			}
+			if(!googleSearch.checked && !bingSearch.checked && !askSearch.checked && !duckDuckGo.checked){
+				alert("Pick a search engine");
+				event.preventDefault();
+			}
+		});
+		form.addEventListener("submit", setSearchEngine);
     });
 	</script>
 </head>
@@ -13,7 +40,12 @@
 <body>
 
 	<form id="searchForm">
-    <!-- TODO: add form elements -->
+	<input type = "text" name = "q"/>
+	<label>Google<input type = "radio" name = "engine" value = "google"/></label>
+	<label>DuckDuckGo<input type = "radio" name = "engine" value = "duckduckgo"/></label>
+	<label>Ask<input type = "radio" name = "engine" value = "ask" /></label>
+	<label>Bing</label><input type = "radio" name = "engine" value = "bing" /></label>
+	<button class = "button">"Go"</button>
 	</form>
 
 </body>
